@@ -1,6 +1,7 @@
 var lines
 var answers
 
+
 function leer(){
     $.get('js/test.txt', function(data) {
         lines = data.split("\n");
@@ -26,7 +27,7 @@ function leer(){
 
 var correcta 
 
-var pregunta = 0
+var pregunta = localStorage.getItem('pregunta') ? localStorage.getItem('pregunta') : 0
  function next(){
     $('#correct').html('')
     $('input[name=group1]:checked').prop('checked', 'false')
@@ -82,6 +83,8 @@ var pregunta = 0
 function nextQuestion(){
 
     pregunta +=1
+
+    localStorage.setItem('pregunta', pregunta)
 
     next()
 
