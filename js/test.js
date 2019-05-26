@@ -13,10 +13,14 @@ function leer(){
         answers = data.split("\n");
         
         console.log(answers.length)
-        next()
+        
      });
 
-     
+     setTimeout(function(){
+
+        next()
+
+     },1000)
 
 }
 
