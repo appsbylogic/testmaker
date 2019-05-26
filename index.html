@@ -92,6 +92,8 @@
 
                     <a class="btn-floating  btn-medium waves-effect waves-light right" onclick='reset()'><i class="material-icons">replay</i></a>
 
+                    <a class="btn-floating  btn-medium waves-effect waves-light modal-trigger" href="#modal1" ><i class="material-icons">search</i></a>
+
 
 
     </div>
@@ -100,9 +102,28 @@
 
 </div>
 
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Go to question...</h4>
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Question number" id="questionNumber" type="number" class="validate">
+          
+        </div>
+      </div>
+        </form>
+  </div>
+  <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="goTo()">Agree</a>
+    
+  </div>
+</div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
 
     <script src="js/test.js"></script>
 
