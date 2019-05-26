@@ -30,7 +30,7 @@ var correcta
 var pregunta = localStorage.getItem('pregunta') ? localStorage.getItem('pregunta') : 0
  function next(){
     $('#correct').html('')
-    $('input[name=group1]:checked').prop('checked', 'false')
+    $('.radio').prop('checked', false)
     $('#nextQ').addClass('disabled')
 
     correcta = Math.floor(Math.random()*3)
@@ -103,6 +103,16 @@ function nextQuestion(){
         $('#correct').html('close')
 
     }
+
+ }
+
+ function reset(){
+    pregunta = 0
+
+    localStorage.setItem('pregunta', pregunta)
+
+    next()
+
 
  }
 
