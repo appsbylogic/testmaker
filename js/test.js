@@ -1,6 +1,9 @@
 var lines
 var answers
-
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+      
 
 function leer(){
     $.get('js/test.txt', function(data) {
@@ -27,7 +30,7 @@ function leer(){
 
 var correcta 
 
-var pregunta = localStorage.getItem('pregunta') ? localStorage.getItem('pregunta') : 0
+var pregunta = localStorage.getItem('pregunta') ? parseInt(localStorage.getItem('pregunta')) : 0
  function next(){
     $('#correct').html('')
     $('.radio').prop('checked', false)
@@ -82,6 +85,8 @@ var pregunta = localStorage.getItem('pregunta') ? localStorage.getItem('pregunta
 
 function nextQuestion(){
 
+    console.log(pregunta)
+
     pregunta +=1
 
     localStorage.setItem('pregunta', pregunta)
@@ -115,5 +120,13 @@ function nextQuestion(){
 
 
  }
+
+function goTo(){
+
+    pregunta = $('#questionNumber').val()-1
+    localStorage.setItem('pregunta', pregunta)
+
+    next()
+}
 
 leer()
