@@ -4,7 +4,7 @@ var answers
 function leer(){
     $.get('js/test.txt', function(data) {
         lines = data.split("\n");
-    
+        console.log(lines.length)
         
             
      });
@@ -12,7 +12,7 @@ function leer(){
      $.get('js/respuestas.txt', function(data) {
         answers = data.split("\n");
         
-        console.log(answers[0])
+        console.log(answers.length)
         next()
      });
 
