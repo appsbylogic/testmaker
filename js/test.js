@@ -6,14 +6,14 @@ $(document).ready(function(){
       
 
 function leer(){
-    $.get('js/test.txt', function(data) {
+    $.get('js/preg.txt', function(data) {
         lines = data.split("\n");
         console.log(lines.length)
         
             
      });
     
-     $.get('js/respuestas.txt', function(data) {
+     $.get('js/res.txt', function(data) {
         answers = data.split("\n");
         
         console.log(answers.length)
@@ -122,7 +122,7 @@ function nextQuestion(){
  }
 
 function goTo(){
-
+    
     pregunta = $('#questionNumber').val()-1
     localStorage.setItem('pregunta', pregunta)
 
