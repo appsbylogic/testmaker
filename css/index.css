@@ -1,0 +1,31 @@
+.example{
+
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+.exampleTitle{
+ 
+  
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+blockquote{
+
+   border-left: 5px solid #009688;
+
+}
+
+.test{
+
+    
+
+}
+
+.disappear{
+
+    display: none;
+}
