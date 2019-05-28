@@ -192,11 +192,17 @@ function nextQuestion(){
 
     console.log(pregunta)
 
-    pregunta +=1
+    if(pregunta<answers.length){
+        pregunta +=1
 
-    localStorage.setItem('pregunta', pregunta)
+    
+        localStorage.setItem('pregunta', pregunta)
+    
+        next()
 
-    next()
+    }
+
+   
 
 }
 
