@@ -39,6 +39,7 @@
 </head>
 <body>
 
+  <div class="mainMenu">
   <div class='container'>
 
     <div class="row">
@@ -97,7 +98,7 @@
       
                       <a class="btn btn-large waves-effect waves-light" onclick="submit()">Submit</a>
 
-                      <a class="btn-floating right btn-large waves-effect waves-light grey darken-4 modal-trigger" href='#help'><i class="material-icons white-text">help</i>></a>
+                      <a class="btn-floating right btn-large waves-effect waves-light white modal-trigger" href='#help'><i class="material-icons black-text">help</i>></a>
       
                     </div>
       
@@ -114,15 +115,38 @@
 
     </div>
 
-
+   
 
   </div>
+
+  <div class="container previous tests disappear">
+
+    <div class="row">
+
+      <div class="col s12">
+
+        <h4>Saved tests</h4>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 
     <div class="container test scale-transition  disappear">
 
         <div class="row">
 
             <div class="col s12 m12">
+              <br>
+
+                <a class="btn-floating waves-effect waves-light " id='back' onclick="backMenu()"><i class="material-icons">arrow_back</i>></a>
+
+               
+
                 <div class="card">
 
                     <div class="card-content">
@@ -225,6 +249,37 @@
     
   </div>
 </div>
+
+<div id="modalName" class="modal">
+  <div class="modal-content">
+    <h4>Create test</h4>
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Name" id="testName"  class="validate" >
+          
+        </div>
+      </div>
+        </form>
+  </div>
+  <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="modal.close()">Cancel</a>
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="create()">Agree</a>
+    
+  </div>
+</div>
+
+<div id="modalFinal" class="modal">
+    <div class="modal-content">
+      <h4>Score</h4>
+      <h5 id="score"></h5>
+    </div>
+    <div class="modal-footer">
+      
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="modal2.close()">Agree</a>
+      
+    </div>
+  </div>
 
 <div id="help" class="modal">
     <div class="modal-content">

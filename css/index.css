@@ -26,6 +26,29 @@ blockquote{
 }
 
 .disappear{
-
     display: none;
 }
+
+.delete{
+
+    position: absolute;
+    font-size: 5px;
+
+    top: 10px;
+  
+    left: 5px;
+
+  
+  }
+
+  .go{
+
+    position: absolute;
+    font-size: 5px;
+
+    top: 10px;
+  
+    right: 5px;
+
+  
+  }
