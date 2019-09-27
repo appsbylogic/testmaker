@@ -490,7 +490,7 @@ function writeUsertest(test,userid,name) {
                 
                 <div class="card">
                 <a href="#" class="btn-flat left  delete" onclick="deleteTest('`+childSnapshot.key+`')" id="back"><i class="material-icons grey-text del">close</i></a>
-                <a href="#" onclick="getTest('` + childSnapshot.key + `')" class="topic black-text">
+                <a href="#" onclick="getTestCloud('` + childSnapshot.key + `')" class="topic black-text">
                     <div class="card-content" id="cardPyth" >
             
                     <br>
