@@ -10,23 +10,24 @@ var score = 0
 var first = true
 var skip =false;
 
+
 $(document).ready(function(){
     $('.modal').modal();
     $('.collapsible').collapsible();
-    
-    if(localStorage.getItem('storage')){
-        
-        $('.mainMenu').html(localStorage.getItem('storage'))
+    $('select').formSelect();
 
-        
-
-    }
-   
   });
+
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+   
+    
+  });
+        
   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelector('.collapsible');
     instances = M.Collapsible.init(elems);
-    instance = M.Collapsible.getInstance(elems);
+   
     var elems1 = document.querySelector('#modalName');
     var instances = M.Modal.init(elems1);
     modal = M.Modal.getInstance(elems1);
@@ -50,9 +51,47 @@ function inputPreg(preguntas){
 
 var cuestionario
 
-function submit(){
+$("#input:file").on("change",function (e){
+    var fileName 
+
+    console.log(e)
+    try{
+
+        fileName = e.target.files[0].name;
+
+        $("#fileQuestName").html( fileName);
+  
+    }catch{
+        $("#fileQuestName").html('<i class="material-icons right">file_upload</i>Question File');
+    }
+
+
+      
+
+       
 
     
+    
+});
+
+$("#input2:file").change(function (e){
+    var fileName
+
+    try{
+        fileName = e.target.files[0].name;
+
+        $("#fileAnsName").html( fileName);
+
+    }catch{
+        $("#fileAnsName").html('<i class="material-icons right">file_upload</i>Answer file');
+    }
+    
+    
+  });
+
+
+function submit(){
+
 
     
 
@@ -117,9 +156,46 @@ function submit(){
         
     
         modal.open()
+
+        
+        $("#fileQuestName").html('<i class="material-icons right">file_upload</i>Question File');
+        $("#input:file").val('')
+        $("#fileAnsName").html('<i class="material-icons right">file_upload</i>Answer file');
+        $("#input2:file").val('')
     }
  
 }
+$("select.storageSelect").on('change', function(){
+
+   console.log('asdasdasd')
+
+   if($("select.storageSelect").val()==1){
+    $(".cloudTest").css("display","block")
+
+  
+
+    if(userId==undefined){
+        
+        $(".cloudTest").html("<blockquote><a data-target='mobile-demo' class='sidenav-trigger teal-text'><b>Sign in</b></a>  to save your tests in the cloud</blockquote>")
+
+    }
+    if($(".cloudTest").html().replace(/\s/g, '')==''){
+        $(".cloudTest").html('<blockquote id="noTestMsg2">There are no saved tests</blockquote>');
+    }
+    $(".localTest").css("display","none")
+   }else{
+    $(".cloudTest").css("display","none")
+
+    if($(".localTest").html().replace(/\s/g, '')==''){
+        $(".cloudTest").html('<blockquote id="noTestMsg2">There are no saved tests</blockquote>');
+    }
+    $(".localTest").css("display","block")
+   }
+    
+
+});
+
+
 
 function create(){
     cuestionario = [lines,answers]
@@ -127,27 +203,48 @@ function create(){
 
     console.log(cuestionario)
 
-    localStorage.setItem(preguntas.name, JSON.stringify(cuestionario))
+   
 
-
-    instance.close()
     //$('.test').removeClass('disappear')
 
     var name = $('#testName').val()
 
+    if(userId !=undefined){
+        writeUsertest(JSON.stringify(cuestionario),userId,name)
+    }
+   
     
 
-    $('.tests').append('<div class="card scale-transition" ><div class="card-content">\
-    <div class="row"><div class="col s12">\
-    <a class="btn-floating waves-effect waves-light delete" id="back">\
-    <i class="material-icons del">close</i>></a></div></div><div class="row"><br><div class="col s12"><h5 contenteditable>' + name + '</h5></div></div>\
-    <div class="row"><div class="col s12">\
-    <a class="btn-floating waves-effect waves-light go" id="back" onclick="next('+ "'" + document.getElementById('input').files[0].name + "'" +')"><i class="material-icons del">chevron_right</i>></a>\
-    </div></div>')
+        $('.cloudTest').html("<blockquote id='noTestMsg2'>Loading...</blockquote>");
 
-    $('.tests').removeClass('disappear')
+        if(userId != undefined){
+            updateDataBase();
+        }
 
-    localStorage.setItem('storage', $('.mainMenu').html())
+        
+
+ 
+        $('.localTest').append(`
+         
+                
+        <div class="card">
+        <a href="#" class="btn-flat left  delete" onclick="deleteTest('`+name+`')" id="back"><i class="material-icons grey-text del">close</i></a>
+        <a href="#" onclick="getTest('` + name + `')" class="topic black-text">
+            <div class="card-content" id="cardPyth" >
+    
+            <br>
+            <h5>` + name + `<i class="material-icons right">chevron_right</i></h5>
+    
+            </div>
+        </a>
+    
+        </div>
+    
+    `)
+    localStorage.setItem(name, JSON.stringify(cuestionario))
+        localStorage.setItem('storage', $('.localTest').html())
+
+    
 
     
     modal.close()
@@ -160,23 +257,34 @@ var correcta
 var cuestName
 
 var pregunta = 0
- function next(name){
+
+function getTestCloud(name){
+    
+ 
+    readDataBaseQuestions(name)
+
+}
+
+function getTest(name){
+
+    cuestionario = localStorage.getItem(name)
+
+    readJson(cuestionario)
+}
+
+ function next(){
 
     first = true
-
-    cuestName = name
+  
      $('.mainMenu').addClass('disappear')
      $('.test').removeClass('disappear')
     $('#correct').html('')
     $('.radio').prop('checked', false)
     $('#nextQ').addClass('disabled')
+ 
 
-    cuestionario = localStorage.getItem(name)
-
-    lines = JSON.parse(cuestionario)[0]
-
-    answers = JSON.parse(cuestionario)[1]
-
+    
+    $(".maxQuestions").html(pregunta+1 + " / " + answers.length)
     console.log()
 
     correcta = Math.floor(Math.random()*3)
@@ -214,6 +322,14 @@ var pregunta = 0
 
     $('.question').html(lines[pregunta])
 
+ }
+
+ function readJson(cuestionario){
+    lines = JSON.parse(cuestionario)[0]
+
+    answers = JSON.parse(cuestionario)[1]
+
+    next()
  }
 
  var res
@@ -263,6 +379,7 @@ function nextQuestion(){
 
 }
 
+
  function check(){
     console.log(correcta)
     res = $('input[name=group1]:checked').val()
@@ -298,11 +415,13 @@ function nextQuestion(){
 function goTo(){
 
     skip = true
-    
-    pregunta = $('#questionNumber').val()-1
+    if($('#questionNumber').val()-1<answers.length){
+        pregunta = $('#questionNumber').val()-1
     
 
-    next(cuestName)
+        next(cuestName)
+    }
+   
 }
 
 function backMenu(){
@@ -312,20 +431,28 @@ function backMenu(){
 
 
 }
+var nameDelete
+
+function deleteTest(name){
+    nameDelete = name
+}
 
 $(document).on('click','.delete',function(e){
-	
+    console.log(nameDelete)
 
-    console.log(e)
+   
     
-    $(e.target.parentNode.parentNode.parentNode.parentNode.parentNode).addClass('scale-transition')
+    $(e.target.parentNode.parentNode).addClass('scale-transition')
 	
-	$(e.target.parentNode.parentNode.parentNode.parentNode.parentNode).addClass('scale-out')
+	$(e.target.parentNode.parentNode).addClass('scale-out')
 
 	window.setTimeout(function(){
-        e.target.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
-        
-        localStorage.setItem('storage', $('.mainMenu').html())
+        e.target.parentNode.parentNode.remove()
+
+        localStorage.setItem('storage', $('.localTest').html())
+        return firebase.database().ref('users/' + userId + '/').child(nameDelete).remove();
+           
+
 
 	},400)
 
@@ -334,3 +461,93 @@ $(document).on('click','.delete',function(e){
 
 
 })
+
+
+
+function writeUsertest(test,userid,name) {
+    firebase.database().ref('users/' + userid + '/' + name).set({
+        
+      test: test
+      //some more user data
+    });
+  
+  
+  }
+
+ 
+  function readDataBase(){
+   
+    var leadsRef = defaultDatabase.ref('users/' + userId);
+    $('#noTestMsg2').remove();
+    leadsRef.once('value', function(snapshot) {
+       
+        snapshot.forEach(function(childSnapshot) {
+          var childData = childSnapshot;
+          console.log(snapshot)
+         
+          $('.cloudTest').append(`
+         
+                
+                <div class="card">
+                <a href="#" class="btn-flat left  delete" onclick="deleteTest('`+childSnapshot.key+`')" id="back"><i class="material-icons grey-text del">close</i></a>
+                <a href="#" onclick="getTest('` + childSnapshot.key + `')" class="topic black-text">
+                    <div class="card-content" id="cardPyth" >
+            
+                    <br>
+                    <h5>` + childSnapshot.key + `<i class="material-icons right">chevron_right</i></h5>
+
+                    </div>
+                </a>
+
+                </div>
+
+            `)
+
+        });
+    });
+  }
+
+  function updateDataBase(){
+    $('#noTestMsg2').remove();
+    $('.testDiv').removeClass('disappear')
+    var leadsRef = defaultDatabase.ref('users/' + userId);
+    return leadsRef.on('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+          var childData = childSnapshot;
+          console.log(snapshot)
+       
+          $('.cloudTest').append(`
+         
+                
+                <div class="card">
+                <a href="#" class="btn-flat left  delete" onclick="deleteTest('`+childSnapshot.key+`')" id="back"><i class="material-icons grey-text del">close</i></a>
+                <a href="#" onclick="getTestCloud('` + childSnapshot.key + `')" class="topic black-text">
+                    <div class="card-content" id="cardPyth" >
+            
+                    <br>
+                    <h5>` + childSnapshot.key + `<i class="material-icons right">chevron_right</i></h5>
+
+                    </div>
+                </a>
+
+                </div>
+
+            `)
+
+        });
+    });
+  }
+
+  function readDataBaseQuestions(name){
+    var childData
+    var leadsRef = defaultDatabase.ref('users/' + userId + "/" + name);
+    leadsRef.once('value', function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+           cuestionario = childSnapshot.val();
+            readJson(cuestionario);
+           return cuestionario
+
+        });
+    });
+    
+  }

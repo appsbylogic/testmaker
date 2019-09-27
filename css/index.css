@@ -13,16 +13,73 @@
     padding: 5px;
 }
 
+@font-face {
+    font-family: 'Social Media Circled';
+   
+    src: url('Social Media Circled.otf');
+}
+
+.link{
+
+    color: #009688;
+
+}
+
+
+.social {
+    font-family: 'Social Media Circled';
+  
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  
+  
+  
+  }
+
+  
+.cloudTest{
+    display: none;
+}
+
 blockquote{
 
    border-left: 5px solid #009688;
 
 }
 
-.test{
+.z-depth-1{
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+}
 
-    
+.z-depth-0{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 
+.selectedTopic{
+
+    background: rgba(44, 182, 163, 0.25);
+    border-radius: 20px;
+    left: -15px;
+  }
+  
+
+.card {
+    border-radius: 10px;
+}
+.collapsible-body, .collapsible-header, .collapsible{
+    border-radius: 5px;
 }
 
 .disappear{
@@ -35,20 +92,31 @@ blockquote{
     font-size: 5px;
 
     top: 10px;
-  
+
     left: 5px;
 
-  
-  }
 
-  .go{
+}
+
+.go{
 
     position: absolute;
     font-size: 5px;
 
     top: 10px;
-  
+
     right: 5px;
 
-  
-  }
+
+}
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.inputfile + label * {
+	pointer-events: none;
+}

@@ -41,86 +41,120 @@
     
 </head>
 <body>
+    <nav class="nav-extended">
+    <div class="nav-wrapper  teal lighten-1">
+      <a href="#!" class="brand-logo center">Test Maker</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger show-on-medium-and-up"><i class="material-icons">menu</i></a>
+      <img class="right circle " id="userImgSmall" src="img/img.jpg" style="width: 40px; height:auto; top: 50%; transform: translateY(-50%); position:absolute; right:15px; display:none">
+    </div>
+   
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><div class="user-view">
+        <div class="background  ">
+            
+          </div>
+          
+        <img class="circle" id="userImg" style="display: none;" src="img/img.jpg">
+        <span id="user" class="black-text name"></span>
+        <span id="mail" class="black-text email" style="display: none;">Your are not logged in</span>
+        
+      </div>
+      <div class="container ">
+          <a class="btn-flat right" id="sign-out" onclick="signOut()" style="display: none;">Sign out</a>
+      </div>
+      <div class="container">
+          <div class="row">
+            <div class="col s12 center">
+                <a class="btn" id="signInBtn" onclick="signIn()">Sign in</a>
+            </div>
+              
+          </div>
+            
+        </div>
+    </li>
+    <div class="divider"></div>
+    <br>
+
+    <li><a href="#" class="waves-effect  selectedTopic teal-text  text-darken-4"><i class="material-icons teal-text  text-darken-4">assignment</i>Test Maker</a></li>
+
+    <li><a class="subheader topic">About and help</a></li>
+
+    <li class="sidenav-footer"><a href="credits.html" class="waves-effect  "><i class="material-icons  ">help</i> Credits</a></li>
+
+
+      
+  </ul>
+  <br>
+
+  <div id="content"></div>
+
+      
+    
+
+     
+
+
+    
 
   <div class="mainMenu">
   <div class='container'>
 
+    
+  
     <div class="row">
 
-      <div class="col s12">
-        <br>
-        <h4>Test Maker</h4>
-        <br>
+      <div class="col s12 xl6 offset-xl3 ">
 
-        <ul class="collapsible">
-            <li class="active">
-              <div class="collapsible-header"><i class="material-icons">attach_file</i>Input Files</div>
-              <div class="collapsible-body">
+        <div class="card z-depth-2 grey lighten-5">         
+              <div class="card-content">
                 <div class="row">
-
-                  <div class="col s12 m6">
-    
-    
-                    <form action="#">
-                      <div class="file-field input-field">
-                        <div class="btn">
-                            
-                          <span>Question File</span>
-                          <input type="file" id="input" onchange="inputPreg(this.files)">
-                          
-                        </div>
-                        <div class="file-path-wrapper">
-                          <input class="file-path validate" type="text">
-                        </div>
-                      </div>
+                    <div class="card col xl6 offset-xl3 offset-s2 s8">
+                      <div class="card-content">
+                          <span class="card-title"><h6>Load your files...</h6></span>
                       
-                    </form>
+                      </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                   
+                  <div class=" center">
+    
+    
+                      <input type="file" id="input" class="inputfile " onchange="inputRes(this.files)" />
+                      <label for="input" id="fileQuestName" class="btn col s8 offset-s2 xl6 offset-xl3 white teal-text  "><i class="material-icons right">file_upload</i>Question File</label>
                               
                   </div>
+
+                </div>
+
+                <div class="row">
+
+                  <div class=" center">
+
+                          <input type="file" id="input2" class="inputfile" onchange="inputRes(this.files)"/>
+                          <label for="input2" id="fileAnsName"  class="btn col s8 offset-s2 xl6 offset-xl3 white teal-text " ><i class="material-icons right">file_upload</i>Answer file</label>
+                    
+
+                  </div>
+
+                </div>
+
+                <div class="row">
+               
     
-                  <div class="col s12 m6 right">
-                    <form action="#">
-                        <div class="file-field input-field">
-                          <div class="btn">
-                            <span>Answer File</span>
-                            <input type="file" id="input2" onchange="inputRes(this.files)">
-                          </div>
-                          <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                          </div>
-                        </div>
-                      </form>
-                                
-                  </div>
-      
-                  </div>
+                    <a class="col s8 offset-s2 xl6 offset-xl3 btn-large waves-effect waves-light " onclick="submit()"><i class="material-icons right">send</i>Submit</a>        
+    
+                  
+                </div>
 
-                  <div class="row">
-
-                    <div class="col s12">
-      
-                      <a class="btn btn-large waves-effect waves-light" onclick="submit()">Submit</a>
-
-                      <a class="btn-floating right btn-large waves-effect waves-light white modal-trigger" href='#help'><i class="material-icons black-text">help</i>></a>
-
-                      
-      
-                    </div>
-      
-                  </div>
-
-                  <div class="row">
-
-                    <div class="col s12">
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    </div>
-
-                  </div>
 
               </div>
-            </li>
+
            
-        </ul>
+          </div>
                 
 
        
@@ -132,18 +166,36 @@
 
   </div>
 
-  <div class="container previous tests disappear">
+  <div class="container previous testDiv ">
 
     <div class="row">
 
-      <div class="col s12">
-          
+        <div class="input-field col s12 xl6 offset-xl3">
+            <select class="storageSelect">
+              
+              <option value="0">Locally saved tests</option>
+              <option value="1">Cloud saved tests</option>
+            </select>
+            <label>Saved tests</label>
+          </div>
 
-        <h4>Saved tests</h4>
+      <div class="col s12 xl6 offset-xl3">
 
-      </div>
+          <div  class="localTest">
+
+              <blockquote id="noTestMsg1">There are no saved tests</blockquote>
+    
+            </div>
+            <div class="cloudTest">
+    
+                <blockquote id="noTestMsg2">There are no saved tests</blockquote>
+      
+              </div>
+          </div>
 
     </div>
+
+   
 
   </div>
 
@@ -154,13 +206,13 @@
 
         <div class="row">
 
-            <div class="col s12 m12">
+            <div class="col s12 xl6 offset-xl3">
               <br>
 
-                <a class="btn-floating waves-effect waves-light " id='back' onclick="backMenu()"><i class="material-icons">arrow_back</i>></a>
+                <a class="btn-floating btn-small waves-effect waves-light " id='back' onclick="backMenu()"><i class="material-icons">arrow_back</i>></a>
 
                
-
+                <h6 class="right maxQuestions"></h6>
                 <div class="card">
 
                     <div class="card-content">
@@ -366,14 +418,92 @@
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
   </div>
-
+ 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script type="text/javascript" src="js/materialize.js"></script>
 
-    <script src="js/test.js"></script>
+   
 
     <script type="text/javascript" src="pwabuilder-sw-register.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-database.js"></script>
+
+  <script src="js/test.js"></script>
+  <script src="js/getProfile.js"></script>  
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+ 
+  
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCwJ81iFm0V-bjg7ScQ7gDGJzELy9xS4bc",
+    authDomain: "testmaker-1569278601638.firebaseapp.com",
+    databaseURL: "https://testmaker-1569278601638.firebaseio.com",
+    projectId: "testmaker-1569278601638",
+    storageBucket: "",
+    messagingSenderId: "764092259535",
+    appId: "1:764092259535:web:5eed8204716f0c5268ebba"
+  };
+  // Initialize Firebase
+  var defaultProject = firebase.initializeApp(firebaseConfig);
+
+  console.log(defaultProject.database());  // "[DEFAULT]"
+
+  // Option 1: Access Firebase services via the defaultProject variable
+
+  var defaultDatabase = defaultProject.database();
+
+  // Option 2: Access Firebase services using shorthand notation
+  var provider = new firebase.auth.GoogleAuthProvider();
+  defaultDatabase = firebase.database();
+  if(userId != undefined){
+    readDataBase();
+    if(localStorage.getItem("storage") && localStorage.getItem("storage").replace(/\s/g, '')  != ''){
+    
+      $(".localTest").html(localStorage.getItem("storage"))
+      $('#noTestMsg1').remove();
+
+    }
+  }else{
+    if(localStorage.getItem("storage") && localStorage.getItem("storage").replace(/\s/g, '')  != '' ){
+  
+      $(".localTest").html(localStorage.getItem("storage"))
+      $('#noTestMsg1').remove();
+  }
+}
+
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  .then(function() {
+
+    
+    
+    
+   
+  })
+  .catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+  });
+  firebase.auth().onAuthStateChanged(function(user) {
+    console.log(user)
+    if (user) {
+    // User is signed in.
+    onSignInCurrent(user)
+
+  } else {
+    // No user is signed in.
+  }
+});
+</script>
+
+    
 
 
 </body>
