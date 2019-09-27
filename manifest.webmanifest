@@ -6,7 +6,7 @@
     "display": "standalone",
     "start_url": "https://appsbylogic.github.io/testmaker/",
     "short_name": "Test Maker",
-    "theme_color": "#FFFFFF",
+    "theme_color": "#26a69a",
     "description": "Create your own tests!",
     "orientation": "portrait",
     "background_color": "#5DC6BC",
