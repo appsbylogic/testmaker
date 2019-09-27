@@ -9,7 +9,7 @@ var modal2
 var score = 0
 var first = true
 var skip =false;
-localStorage.clear();
+
 
 $(document).ready(function(){
     $('.modal').modal();
