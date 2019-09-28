@@ -15,9 +15,13 @@ $(document).ready(function(){
     $('.modal').modal();
     $('.collapsible').collapsible();
     $('select').formSelect();
+    
 
   });
-
+  document.addEventListener('deviceready', function(){
+	StatusBar.backgroundColorByHexString('#26a69a');
+	
+});
   $(document).ready(function(){
     $('.sidenav').sidenav();
    
@@ -176,7 +180,7 @@ $("select.storageSelect").on('change', function(){
 
     if(userId==undefined){
         
-        $(".cloudTest").html("<blockquote><a data-target='mobile-demo' class='sidenav-trigger teal-text'><b>Sign in</b></a>  to save your tests in the cloud</blockquote>")
+        $(".cloudTest").html("<blockquote id='noTestMsg2'><a data-target='mobile-demo' class='sidenav-trigger teal-text'><b>Sign in</b></a>  to save your tests in the cloud</blockquote>")
 
     }
     if($(".cloudTest").html().replace(/\s/g, '')==''){
@@ -219,6 +223,7 @@ function create(){
 
         if(userId != undefined){
             updateDataBase();
+            $("#noTestMsg1").remove();
         }
 
         
@@ -272,6 +277,15 @@ function getTest(name){
     readJson(cuestionario)
 }
 
+function randomExcept(unwantedNumber, max){
+    let result;
+    do{
+        result=Math.floor(Math.random()*max);
+      }while(result==unwantedNumber);
+      console.log("Resultado "+ result)
+      return result;
+}
+
  function next(){
 
     first = true
@@ -289,33 +303,33 @@ function getTest(name){
 
     correcta = Math.floor(Math.random()*3)
     
-    console.log(correcta)
+    console.log(pregunta)
     if(correcta == 0){
         $('#1').html(answers[pregunta])
-        $('#2').html(answers[Math.floor(Math.random()*answers.length)])
-        $('#3').html(answers[Math.floor(Math.random()*answers.length)])
-        $('#4').html(answers[Math.floor(Math.random()*answers.length)])
+        $('#2').html(answers[randomExcept(pregunta,answers.length)])
+        $('#3').html(answers[randomExcept(pregunta,answers.length)])
+        $('#4').html(answers[randomExcept(pregunta,answers.length)])
         console.log(correcta)
     }
     if(correcta == 1){
         $('#2').html(answers[pregunta])
-        $('#1').html(answers[Math.floor(Math.random()*answers.length)])
-        $('#3').html(answers[Math.floor(Math.random()*answers.length)])
-        $('#4').html(answers[Math.floor(Math.random()*answers.length)])
+        $('#1').html(answers[randomExcept(pregunta,answers.length)])
+        $('#3').html(answers[randomExcept(pregunta,answers.length)])
+        $('#4').html(answers[randomExcept(pregunta,answers.length)])
 
     }
     if(correcta == 2){
         $('#3').html(answers[pregunta])
-        $('#2').html(answers[Math.floor(Math.random()*answers.length)])
-        $('#1').html(answers[Math.floor(Math.random()*answers.length)])
-        $('#4').html(answers[Math.floor(Math.random()*answers.length)])
+        $('#2').html(answers[randomExcept(pregunta,answers.length)])
+        $('#1').html(answers[randomExcept(pregunta,answers.length)])
+        $('#4').html(answers[randomExcept(pregunta,answers.length)])
 
     }
     if(correcta == 3){
         $('#4').html(answers[pregunta])
-        $('#2').html(answers[Math.floor(Math.random()*answers.length)])
-        $('#3').html(answers[Math.floor(Math.random()*answers.length)])
-        $('#1').html(answers[Math.floor(Math.random()*answers.length)])
+        $('#2').html(answers[randomExcept(pregunta,answers.length)])
+        $('#3').html(answers[randomExcept(pregunta,answers.length)])
+        $('#1').html(answers[randomExcept(pregunta,answers.length)])
 
     }
 
@@ -358,7 +372,8 @@ function nextQuestion(){
     }
     
     if(pregunta==answers.length){
-
+        $(".maxQuestions").html(answers.length + " / " + answers.length)
+     
         var total = answers.length
         console.log(score)
         if(!skip){
@@ -369,7 +384,7 @@ function nextQuestion(){
             $('#score').html('You skipped questions! You need to answer all the questions in order to get a score')
 
         }
-        
+        score = 0;
 
         modal2.open()
 
@@ -424,11 +439,17 @@ function goTo(){
    
 }
 
-function backMenu(){
-    $('.mainMenu').removeClass('disappear')
-     $('.test').addClass('disappear')
-     skip =false;
+function closeModal(){
+    modal2.close()
+    reset()
+    backMenu();
+}
 
+function backMenu(){
+   
+    $('.mainMenu').removeClass('disappear')
+    $('.test').addClass('disappear')
+    
 
 }
 var nameDelete
@@ -478,13 +499,13 @@ function writeUsertest(test,userid,name) {
   function readDataBase(){
    
     var leadsRef = defaultDatabase.ref('users/' + userId);
-    $('#noTestMsg2').remove();
+   
     leadsRef.once('value', function(snapshot) {
        
         snapshot.forEach(function(childSnapshot) {
           var childData = childSnapshot;
           console.log(snapshot)
-         
+          $('#noTestMsg2').remove();
           $('.cloudTest').append(`
          
                 
@@ -508,14 +529,15 @@ function writeUsertest(test,userid,name) {
   }
 
   function updateDataBase(){
-    $('#noTestMsg2').remove();
+   
     $('.testDiv').removeClass('disappear')
     var leadsRef = defaultDatabase.ref('users/' + userId);
+    
     return leadsRef.on('value', function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
           var childData = childSnapshot;
           console.log(snapshot)
-       
+          $('#noTestMsg2').remove();
           $('.cloudTest').append(`
          
                 

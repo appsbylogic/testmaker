@@ -21,6 +21,7 @@ function onSignIn(user){
   
 }
 
+
 function onSignInCurrent(user){
   $("#signInBtn").css("display","none")
   $("#userImg").css("display","block")
@@ -41,7 +42,8 @@ function onSignInCurrent(user){
   
 }
 
-function signIn(){
+function signIn(provider){
+  
 
   
   firebase.auth().signInWithRedirect(provider).then(function(result) {

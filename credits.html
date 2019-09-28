@@ -45,7 +45,7 @@
         <div class="nav-wrapper  teal lighten-1">
           <a href="#!" class="brand-logo center">Test Maker</a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger show-on-medium-and-up"><i class="material-icons">menu</i></a>
-          <img class="right circle" id="userImgSmall" src="img/img.jpg" style="width: 40px; height:auto; top: 50%; transform: translateY(-50%); position: absolute; right:15px; display:none">
+          <img data-target="mobile-demo" class="right circle sidenav-trigger" id="userImgSmall" src="img/img.jpg" style="width: 30px; height:auto; top: 50%; transform: translateY(-50%); position:absolute; right:15px; display:none">
         
         </div>
        
@@ -68,7 +68,7 @@
           <div class="container">
               <div class="row">
                 <div class="col s12 center">
-                    <a class="btn" id="signInBtn" onclick="signIn()">Sign in</a>
+                    <a class="btn waves-effect waves-light modal-trigger" href="#signInModal" id="signInBtn">Sign in</a>
                 </div>
                   
               </div>
@@ -89,7 +89,27 @@
       </ul>
 
      
+      <div id="signInModal" class="modal">
+          <div class="modal-content">
+            <h4>Sign In</h4>
+            <br>
+            <div class="row">
     
+                <a class="btn-large white grey-text col s12 xl6 offset-xl3 center" onclick="signIn(providerG)" style="text-transform: none;"><i class="material-icons large left"><img style="width: 1em; height: auto; position: relative; top: 50%; " src="img/google.png"></i><b>Sign in with Google</b></a>
+            
+    
+            </div>
+            <div class="row">
+    
+                <a class="btn-large col s12 xl6 offset-xl3 center blue darken-2" onclick="signIn(providerFb)" style="text-transform: none;"><i class="social large blue darken-2 left" style="font-size: 2em;">E</i>Sign in with Facebook</a>
+            
+    
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+          </div>
+        </div>
 
 
 	<div class="container" id="solve">
@@ -180,7 +200,7 @@
     </div>  
 
   </div>
-
+  <script type="text/javascript" src="js/statusbar.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script type="text/javascript" src="js/materialize.js"></script>
@@ -195,6 +215,7 @@
   
     <script src="js/test.js"></script>
     <script src="js/getProfile.js"></script>  
+    <script src="cordova.js"></script>
   
   <!-- TODO: Add SDKs for Firebase products that you want to use
        https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -222,7 +243,8 @@
     var defaultDatabase = defaultProject.database();
   
     // Option 2: Access Firebase services using shorthand notation
-    var provider = new firebase.auth.GoogleAuthProvider();
+    var providerG = new firebase.auth.GoogleAuthProvider();
+  var providerFb= new firebase.auth.FacebookAuthProvider();
     defaultDatabase = firebase.database();
     
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)

@@ -45,7 +45,7 @@
     <div class="nav-wrapper  teal lighten-1">
       <a href="#!" class="brand-logo center">Test Maker</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger show-on-medium-and-up"><i class="material-icons">menu</i></a>
-      <img class="right circle " id="userImgSmall" src="img/img.jpg" style="width: 40px; height:auto; top: 50%; transform: translateY(-50%); position:absolute; right:15px; display:none">
+      <img data-target="mobile-demo" class="right circle sidenav-trigger" id="userImgSmall" src="img/img.jpg" style="width: 30px; height:auto; top: 50%; transform: translateY(-50%); position:absolute; right:15px; display:none">
     </div>
    
   </nav>
@@ -67,7 +67,7 @@
       <div class="container">
           <div class="row">
             <div class="col s12 center">
-                <a class="btn" id="signInBtn" onclick="signIn()">Sign in</a>
+                <a class="btn waves-effect waves-light modal-trigger" href="#signInModal" id="signInBtn">Sign in</a>
             </div>
               
           </div>
@@ -86,6 +86,28 @@
 
       
   </ul>
+
+  <div id="signInModal" class="modal">
+      <div class="modal-content">
+        <h4>Sign In</h4>
+        <br>
+        <div class="row">
+
+            <a class="btn-large white grey-text col s12 xl6 offset-xl3 center" onclick="signIn(providerG)" style="text-transform: none;"><i class="material-icons large left"><img style="width: 1em; height: auto; position: relative; top: 50%; " src="img/google.png"></i><b>Sign in with Google</b></a>
+        
+
+        </div>
+        <div class="row">
+
+            <a class="btn-large col s12 xl6 offset-xl3 center blue darken-2" onclick="signIn(providerFb)" style="text-transform: none;"><i class="social large blue darken-2 left" style="font-size: 2em;">E</i>Sign in with Facebook</a>
+        
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      </div>
+    </div>
   <br>
 
   <div id="content"></div>
@@ -124,7 +146,7 @@
     
     
                       <input type="file" id="input" class="inputfile " onchange="inputRes(this.files)" />
-                      <label for="input" id="fileQuestName" class="btn col s8 offset-s2 xl6 offset-xl3 white teal-text  "><i class="material-icons right">file_upload</i>Question File</label>
+                      <label for="input" id="fileQuestName" class="btn btnRound col s8 offset-s2 xl6 offset-xl3 white teal-text  "><i class="material-icons right">file_upload</i>Question File</label>
                               
                   </div>
 
@@ -135,7 +157,7 @@
                   <div class=" center">
 
                           <input type="file" id="input2" class="inputfile" onchange="inputRes(this.files)"/>
-                          <label for="input2" id="fileAnsName"  class="btn col s8 offset-s2 xl6 offset-xl3 white teal-text " ><i class="material-icons right">file_upload</i>Answer file</label>
+                          <label for="input2" id="fileAnsName"  class="btn btnRound col s8 offset-s2 xl6 offset-xl3 white teal-text " ><i class="material-icons right">file_upload</i>Answer file</label>
                     
 
                   </div>
@@ -145,11 +167,11 @@
                 <div class="row">
                
     
-                    <a class="col s8 offset-s2 xl6 offset-xl3 btn-large waves-effect waves-light " onclick="submit()"><i class="material-icons right">send</i>Submit</a>        
+                    <a class="col s8 offset-s2 xl6 offset-xl3 btn-large btnRound waves-effect waves-light " onclick="submit()"><i class="material-icons right">send</i>Submit</a>        
     
                   
                 </div>
-
+                <a class="btn-floating white waves-effect waves-light modal-trigger " href="#help"><i class="material-icons right grey-text">help</i>Submit</a>
 
               </div>
 
@@ -170,29 +192,44 @@
 
     <div class="row">
 
-        <div class="input-field col s12 xl6 offset-xl3">
-            <select class="storageSelect">
-              
-              <option value="0">Locally saved tests</option>
-              <option value="1">Cloud saved tests</option>
-            </select>
-            <label>Saved tests</label>
+      <div class="col s12 xl6 offset-xl3">
+        <div class="card">
+          <div class="card-content">
+              <div class="input-field ">
+                  <select class="storageSelect">
+                    
+                    <option value="0">Locally saved tests</option>
+                    <option value="1">Cloud saved tests</option>
+                  </select>
+                  <label>Saved tests</label>
+                </div>
+            
           </div>
 
-      <div class="col s12 xl6 offset-xl3">
+        </div>
 
-          <div  class="localTest">
+      </div>
 
-              <blockquote id="noTestMsg1">There are no saved tests</blockquote>
-    
-            </div>
-            <div class="cloudTest">
-    
-                <blockquote id="noTestMsg2">There are no saved tests</blockquote>
+   
+
+    </div>
+
+    <div class="row">
+           
+
+        <div class="col s12 xl6 offset-xl3">
+
+            <div  class="localTest">
+  
+                <blockquote id="noTestMsg1">There are no saved tests</blockquote>
       
               </div>
-          </div>
-
+              <div class="cloudTest">
+      
+                  <blockquote id="noTestMsg2">There are no saved tests</blockquote>
+        
+                </div>
+            </div>
     </div>
 
    
@@ -342,7 +379,7 @@
     </div>
     <div class="modal-footer">
       
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="modal2.close()">Agree</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="closeModal()">Agree</a>
       
     </div>
   </div>
@@ -356,7 +393,7 @@
         <li><blockquote>Attach 2 files, one with questions and one with answers.</blockquote></li>
         <li><blockquote>Write each question/answer on a separated line.</blockquote>
           </li>
-          <li><blockquote>Make sure the answers and the questions are on the same lines (Question 1: lines1, answer 1: line 1)</blockquote></li>
+          <li><blockquote>Make sure the answers and the questions are on the same lines (Question 1: line 1, answer 1: line 1)</blockquote></li>
       </ul>
       
       
@@ -418,7 +455,10 @@
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
   </div>
- 
+
+  
+  <script type="text/javascript" src="js/statusbar.js"></script>
+   
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script type="text/javascript" src="js/materialize.js"></script>
@@ -433,15 +473,20 @@
 
   <script src="js/test.js"></script>
   <script src="js/getProfile.js"></script>  
+  <script src="cordova.js"></script>
+ 
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
 <script>
  
-  
+ var providerG 
+  var providerFb
+  var defaultDatabase
   // Your web app's Firebase configuration
-  var firebaseConfig = {
+
+    var firebaseConfig = {
     apiKey: "AIzaSyCwJ81iFm0V-bjg7ScQ7gDGJzELy9xS4bc",
     authDomain: "testmaker-1569278601638.firebaseapp.com",
     databaseURL: "https://testmaker-1569278601638.firebaseio.com",
@@ -452,15 +497,18 @@
   };
   // Initialize Firebase
   var defaultProject = firebase.initializeApp(firebaseConfig);
+    //mycode
+
 
   console.log(defaultProject.database());  // "[DEFAULT]"
 
   // Option 1: Access Firebase services via the defaultProject variable
 
-  var defaultDatabase = defaultProject.database();
+   defaultDatabase = defaultProject.database();
 
   // Option 2: Access Firebase services using shorthand notation
-  var provider = new firebase.auth.GoogleAuthProvider();
+   providerG = new firebase.auth.GoogleAuthProvider();
+   providerFb= new firebase.auth.FacebookAuthProvider();
   defaultDatabase = firebase.database();
   if(userId != undefined){
     readDataBase();
@@ -501,9 +549,10 @@
     // No user is signed in.
   }
 });
+ 
 </script>
 
-    
+    <script src="js/admob.js"></script>
 
 
 </body>
